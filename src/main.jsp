@@ -1,29 +1,34 @@
-<%@ page import = "java.io.*,java.util.*" %>
+<%
+    // Create cookies for first and last names.
+    Cookie firstName = new Cookie("first_name", request.getParameter("first_name"));
+    Cookie lastName = new Cookie("last_name", request.getParameter("last_name"));
+
+    // Set expiry date after 24 Hrs for both the cookies.
+    firstName.setMaxAge(60*60*24);
+    lastName.setMaxAge(60*60*24);
+
+    // Add both the cookies in the response header.
+    response.addCookie( firstName );
+    response.addCookie( lastName );
+%>
 
 <html>
 <head>
-    <title>HTTP Header Request Example</title>
+    <title>Setting Cookies</title>
 </head>
 
 <body>
 <center>
-    <h2>HTTP Header Request Example</h2>
-    <table width = "100%" border = "1" align = "center">
-        <tr bgcolor = "#949494">
-            <th>Param Name</th>
-            <th>Param Value(s)</th>
-        </tr>
-        <%
-            Enumeration paramNames = request.getParameterNames();
-            while(paramNames.hasMoreElements()) {
-                String paramName = (String)paramNames.nextElement();
-                out.print("<tr><td>" + paramName + "</td>\n");
-                String paramValue = request.getHeader(paramName);
-                out.println("<td> " + paramValue + "</td></tr>\n");
-            }
-        %>
-    </table>
+    <h1>Setting Cookies</h1>
 </center>
+<ul>
+    <li><p><b>First Name:</b>
+        <%= request.getParameter("first_name")%>
+    </p></li>
+    <li><p><b>Last  Name:</b>
+        <%= request.getParameter("last_name")%>
+    </p></li>
+</ul>
 
 </body>
 </html>
