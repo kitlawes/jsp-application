@@ -1,11 +1,18 @@
-<%@ taglib prefix = "ex" uri = "WEB-INF/custom.tld"%>
+<%@ page errorPage = "showError.jsp" %>
 
 <html>
 <head>
-    <title>A sample custom tag</title>
+    <title>Error Handling Example</title>
 </head>
 
 <body>
-<ex:Hello message = "This is custom tag" />
+<%
+    // Throw an exception to invoke the error page
+    int x = 1;
+
+    if (x == 1) {
+        throw new RuntimeException("Error condition!!!");
+    }
+%>
 </body>
 </html>
