@@ -1,21 +1,32 @@
-<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@page import = "java.util.logging.Logger" %>
+<%@ page import = "java.io.*,java.util.Locale" %>
+<%@ page import = "javax.servlet.*,javax.servlet.http.* "%>
+<%@ page import = "java.text.DateFormat,java.util.Date" %>
+
+<%
+    String title = "Locale Specific Dates";
+
+    //Get the client's Locale
+    Locale locale = request.getLocale( );
+
+    String date = DateFormat.getDateTimeInstance(
+            DateFormat.FULL,
+            DateFormat.SHORT,
+            locale).format(new Date( ));
+%>
 
 <html>
-<head><title>Logger.info</title></head>
+
+<head>
+    <title><% out.print(title); %></title>
+</head>
 
 <body>
-<% Logger logger = Logger.getLogger(this.getClass().getName());%>
+<center>
+    <h1><% out.print(title); %></h1>
+</center>
 
-<c:forEach var = "counter" begin = "1" end = "10" step = "1" >
-    <c:set var = "myCount" value = "${counter-5}" />
-    <c:out value = "${myCount}"/></br>
-    <% String message = "counter = "
-            + pageContext.findAttribute("counter") + "myCount = "
-            + pageContext.findAttribute("myCount");
-        logger.info( message );
-    %>
-</c:forEach>
-
+<div align = "center">
+    <p>Local Date: <%  out.print(date); %></p>
+</div>
 </body>
 </html>
