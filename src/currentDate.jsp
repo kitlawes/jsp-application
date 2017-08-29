@@ -1,4 +1,5 @@
-<%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import = "java.io.*,java.util.*" %>
+<%@ page import = "javax.servlet.*,java.text.*" %>
 
 <html>
 <head>
@@ -10,8 +11,10 @@
     <h1>Display Current Date & Time</h1>
 </center>
 <%
-    Date date = new Date();
-    out.print( "<h2 align = \"center\">" +date.toString()+"</h2>");
+    Date dNow = new Date( );
+    SimpleDateFormat ft =
+            new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+    out.print( "<h2 align=\"center\">" + ft.format(dNow) + "</h2>");
 %>
 </body>
 </html>
