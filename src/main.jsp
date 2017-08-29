@@ -1,33 +1,21 @@
-<%@ page import = "java.io.*,java.util.*" %>
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "x" uri="http://java.sun.com/jsp/jstl/xml" %>
 
 <html>
 <head>
-    <title>Auto Refresh Header Example</title>
+    <title>JSTL x:parse Tags</title>
 </head>
 
 <body>
-<center>
-    <h2>Auto Refresh Header Example</h2>
-    <%
-        // Set refresh, autoload time as 5 seconds
-        response.setIntHeader("Refresh", 5);
+<h3>Books Info:</h3>
+<c:import var = "bookInfo" url="http://localhost:8080/books.xml"/>
 
-        // Get current time
-        Calendar calendar = new GregorianCalendar();
-        String am_pm;
+<x:parse xml = "${bookInfo}" var = "output"/>
+<b>The title of the first book is</b>:
+<x:out select = "$output/books/book[1]/name" />
+<br>
 
-        int hour = calendar.get(Calendar.HOUR);
-        int minute = calendar.get(Calendar.MINUTE);
-        int second = calendar.get(Calendar.SECOND);
-
-        if(calendar.get(Calendar.AM_PM) == 0)
-            am_pm = "AM";
-        else
-            am_pm = "PM";
-        String CT = hour+":"+ minute +":"+ second +" "+ am_pm;
-        out.println("Current Time: " + CT + "\n");
-    %>
-</center>
-
+<b>The price of the second book</b>:
+<x:out select = "$output/books/book[2]/price" />
 </body>
 </html>
